@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07111f" />
+    <title>Ameba Mini 語音燈控台</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">AMB82-MINI · PYTHON SERIAL</p>
+        <h1>語音燈控台</h1>
+        <p class="subtitle">說「左邊開燈」或「右邊開燈」，由開發板回報實際控制狀態。</p>
+      </header>
+
+      <section class="status-grid" aria-label="系統狀態">
+        <article>
+          <span class="label">連線</span>
+          <p id="connection-text">尚未連接</p>
+        </article>
+        <article>
+          <span class="label">語音辨識</span>
+          <p id="recognition-text">等待開始</p>
+        </article>
+        <article>
+          <span class="label">執行結果</span>
+          <p id="execution-text">尚未送出指令</p>
+        </article>
+      </section>
+
+      <section class="language-panel" aria-label="語音辨識設定">
+        <label for="speech-language">
+          <span>辨識語言</span>
+          <select id="speech-language">
+            <option value="zh-TW">中文</option>
+            <option value="en-US">English</option>
+          </select>
+        </label>
+        <p id="voice-hint">按一次持續聆聽，完成後再按停止</p>
+        <label class="reply-toggle">
+          <input id="speech-reply" type="checkbox" checked />
+          <span>語音回覆</span>
+        </label>
+        <div class="english-commands" aria-label="簡易英文指令">
+          <code>Blue on/off</code>
+          <code>Green on/off</code>
+          <code>Lights on/off</code>
+          <code>Blink now</code>
+        </div>
+      </section>
+
+      <section class="control-panel">
+        <button id="connect" class="primary">連接 AMB82-MINI</button>
+        <button id="listen" class="listen" disabled>
+          <span class="mic" aria-hidden="true">●</span>
+          開始語音辨識
+        </button>
+      </section>
+
+      <section class="lamp-panel" aria-label="板卡回傳的 LED 狀態">
+        <article id="blue-lamp" class="lamp-card blue">
+          <div class="lamp" aria-hidden="true"></div>
+          <div><span>左邊 · 藍燈</span><strong>未知</strong></div>
+        </article>
+        <article id="green-lamp" class="lamp-card green">
+          <div class="lamp" aria-hidden="true"></div>
+          <div><span>右邊 · 綠燈</span><strong>未知</strong></div>
+        </article>
+      </section>
+
+      <section class="manual-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MANUAL TEST</p>
+            <h2>手動驗證</h2>
+          </div>
+          <p>不依賴麥克風，可單獨測試通訊與 LED。</p>
+        </div>
+        <div class="button-grid">
+          <button data-command="LEFT_ON" disabled>藍燈開</button>
+          <button data-command="LEFT_OFF" disabled>藍燈關</button>
+          <button data-command="RIGHT_ON" disabled>綠燈開</button>
+          <button data-command="RIGHT_OFF" disabled>綠燈關</button>
+          <button data-command="ALL_OFF" disabled>全部關閉</button>
+          <button data-command="BLINK_3" disabled>閃爍三次</button>
+        </div>
+      </section>
+
+      <section class="log-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">BOARD FEEDBACK</p>
+            <h2>事件紀錄</h2>
+          </div>
+          <p>Python CMD 與此處同步顯示板卡回覆。</p>
+        </div>
+        <ol id="event-log" aria-live="polite"></ol>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js?v=python-sapi-1"></script>
+  </body>
+</html>
